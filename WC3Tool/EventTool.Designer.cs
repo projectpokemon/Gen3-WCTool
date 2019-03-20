@@ -349,8 +349,8 @@ namespace WC3_TOOL
 			this.label6.Size = new System.Drawing.Size(552, 31);
 			this.label6.TabIndex = 40;
 			this.label6.Text = "If you own any of these events and want to contribute want to contribute to this " +
-	"project, please contact suloku or ajxpkm at projectpokemon.org forums or send an" +
-	" e-mail to gen3mysterygift@gmail.com";
+	"project, please contact Sabresite, suloku or ajxpkm at projectpokemon.org forums or send an" +
+	" e-mail to sabresite@projectpokemon.org";
 			// 
 			// EventTool
 			// 
@@ -374,7 +374,7 @@ namespace WC3_TOOL
 			this.Controls.Add(this.sav3_path);
 			this.Controls.Add(this.load_save_but);
 			this.Name = "EventTool";
-			this.Text = "Gen3 Event Tool 0.1d by suloku";
+			this.Text = "Gen3 Event Tool 0.1e by Sabresite";
 			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.EventToolDragDrop);
 			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.EventToolDragEnter);
 			this.JAP_group.ResumeLayout(false);
