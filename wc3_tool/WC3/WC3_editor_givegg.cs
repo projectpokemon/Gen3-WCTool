@@ -7,15 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
-
 using System.Reflection;
 using System.Resources;
 
@@ -96,11 +89,11 @@ Bitmap bitmap = (Bitmap)ResourceManager.GetObject("Image");
 			WC3_editor.wc3file.set_script(egg_script);
 			WC3_editor.script_injected = true;
 			
-			this.Close();
+			Close();
 		}
 		void Cancel_butClick(object sender, EventArgs e)
 		{
-			this.Close();
+			Close();
 		}
 	}
 }

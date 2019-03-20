@@ -7,14 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.IO;
 
 namespace WC3_TOOL
 {
@@ -29,8 +22,6 @@ namespace WC3_TOOL
             Data = (byte[])(data ?? new byte[tv_event_size]).Clone();
             
             load_events();
-
-            return;
         }
         public byte[] getData(int Offset, int Length)
         {
@@ -70,8 +61,6 @@ namespace WC3_TOOL
             Data = (byte[])(data ?? new byte[tv_size]).Clone();
 
             load_shows();
-
-            return;
         }
         public byte[] getData(int Offset, int Length)
         {

@@ -7,14 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
 
 namespace WC3_TOOL
 {
@@ -43,8 +37,6 @@ namespace WC3_TOOL
             Exportable = !Data.SequenceEqual(new byte[Data.Length]);
             
             isEmerald();
-
-            return;
         }
         
         public int isEmerald()
@@ -62,22 +54,22 @@ namespace WC3_TOOL
         	{
         		isemerald = 0;
         		return isemerald;
-        	}else if (chk_scr == chk_E)
-        	{
-        		isemerald = 1;
-        		return isemerald;
-        	}else{
-				DialogResult dialogResult = MessageBox.Show("ME3 file script has wrong checksum. Is this a Ruby/Sapphire mystery event?", "Wrong checksum", MessageBoxButtons.YesNo);
-				if(dialogResult == DialogResult.Yes)
-				{
-					isemerald = 0;
-				}
-				else if (dialogResult == DialogResult.No)
-				{
-					isemerald = 1;
-				}
-				return isemerald;
         	}
+          if (chk_scr == chk_E)
+          {
+	          isemerald = 1;
+	          return isemerald;
+          }
+          DialogResult dialogResult = MessageBox.Show("ME3 file script has wrong checksum. Is this a Ruby/Sapphire mystery event?", "Wrong checksum", MessageBoxButtons.YesNo);
+          if(dialogResult == DialogResult.Yes)
+          {
+	          isemerald = 0;
+          }
+          else if (dialogResult == DialogResult.No)
+          {
+	          isemerald = 1;
+          }
+          return isemerald;
         }
         
         public byte[] getData(int Offset, int Length)
@@ -100,12 +92,11 @@ namespace WC3_TOOL
         	int scriptsize=0;
         	int i = 0;
         	for (i=0; i<me3_size-4-4-8; i++) //Leave out checksum (4), header(4) and item structure (8)
-        	{
-        		if(Data[me3_size-8-i-1] == 0xFF)
+          {
+	          if(Data[me3_size-8-i-1] == 0xFF)
         			break;
-        		else
-        			scriptsize++;
-        	}
+	          scriptsize++;
+          }
         	return getData(8, 996-scriptsize);
         	
         }
@@ -219,8 +210,8 @@ namespace WC3_TOOL
         	
         	if (header != 0x00){
         		return true;
-        	}else{
-        		return false;}
+        	}
+          return false;
         }
         public void removeScript()
         {

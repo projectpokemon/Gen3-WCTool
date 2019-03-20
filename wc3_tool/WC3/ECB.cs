@@ -7,14 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.IO;
 
 namespace WC3_TOOL
 {
@@ -41,8 +34,6 @@ namespace WC3_TOOL
             Exportable = !Data.SequenceEqual(new byte[Data.Length]);
             
             isjap = false;
-          
-            return;
         }
         public byte[] getData(int Offset, int Length)
         {
@@ -127,8 +118,8 @@ namespace WC3_TOOL
         public byte HITEM { get { return Data[0x528]; } set {  Data[0x528] = (byte) value; } }
         
         public byte TR_0 { get { return Data[0x516]; } set {  Data[0x516] = (byte) value; } }
-        public bool TR_0_healinfatuation { get { return Convert.ToBoolean((TR_0 >> 07) & 0x01); } set { TR_0 = (byte)((TR_0 & ~(0x01 << 07)) | (byte)((value == true ? 0x01 : 0x00) << 07)); } }
-        public bool TR_0_firstpkm { get { return Convert.ToBoolean((TR_0 >> 06) & 0x01); } set { TR_0 = (byte)((TR_0 & ~(0x01 << 06)) | (byte)((value == true ? 0x01 : 0x00) << 06)); } }
+        public bool TR_0_healinfatuation { get { return Convert.ToBoolean((TR_0 >> 07) & 0x01); } set { TR_0 = (byte)((TR_0 & ~(0x01 << 07)) | (byte)((value ? 0x01 : 0x00) << 07)); } }
+        public bool TR_0_firstpkm { get { return Convert.ToBoolean((TR_0 >> 06) & 0x01); } set { TR_0 = (byte)((TR_0 & ~(0x01 << 06)) | (byte)((value ? 0x01 : 0x00) << 06)); } }
         public int TR_0_direhit { get { return (int)(TR_0 >> 05) & 0x03; } set { TR_0 = (byte)((TR_0 & ~(0x03 << 05)) | (byte)((value > 3 ? 3 : value) << 05)); } }
         public int TR_0_attackUP { get { return (int)(TR_0 >> 00) & 0x0f; } set { TR_0 = (byte)((TR_0 & ~(0x0f << 00)) | (byte)((value > 0xf ? 0xf : value) << 00)); } }
         
@@ -141,35 +132,35 @@ namespace WC3_TOOL
         public int TR_2_accUP { get { return (int)(TR_2 >> 04) & 0x0f; } set { TR_2 = (byte)((TR_2 & ~(0x0f << 04)) | (byte)((value > 0xf ? 0xf : value) << 04)); } }
         
         public byte TR_3 { get { return Data[0x519]; } set {  Data[0x519] = (byte) value; } }
-        public bool TR_3_guardspec { get { return Convert.ToBoolean((TR_3 >> 07) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 07)) | (byte)((value == true ? 0x01 : 0x00) << 07)); } }
-        public bool TR_3_lvlUP { get { return Convert.ToBoolean((TR_3 >> 06) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 06)) | (byte)((value == true ? 0x01 : 0x00) << 06)); } }
-        public bool TR_3_clearSleep { get { return Convert.ToBoolean((TR_3 >> 05) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 05)) | (byte)((value == true ? 0x01 : 0x00) << 05)); } }
-        public bool TR_3_clearPoison { get { return Convert.ToBoolean((TR_3 >> 04) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 04)) | (byte)((value == true ? 0x01 : 0x00) << 04)); } }
-        public bool TR_3_clearBurn { get { return Convert.ToBoolean((TR_3 >> 03) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 03)) | (byte)((value == true ? 0x01 : 0x00) << 03)); } }
-        public bool TR_3_clearIce { get { return Convert.ToBoolean((TR_3 >> 02) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 02)) | (byte)((value == true ? 0x01 : 0x00) << 02)); } }
-        public bool TR_3_clearPar { get { return Convert.ToBoolean((TR_3 >> 01) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 01)) | (byte)((value == true ? 0x01 : 0x00) << 01)); } }
-        public bool TR_3_clearConf { get { return Convert.ToBoolean((TR_3 >> 00) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 00)) | (byte)((value == true ? 0x01 : 0x00) << 00)); } }
+        public bool TR_3_guardspec { get { return Convert.ToBoolean((TR_3 >> 07) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 07)) | (byte)((value ? 0x01 : 0x00) << 07)); } }
+        public bool TR_3_lvlUP { get { return Convert.ToBoolean((TR_3 >> 06) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 06)) | (byte)((value ? 0x01 : 0x00) << 06)); } }
+        public bool TR_3_clearSleep { get { return Convert.ToBoolean((TR_3 >> 05) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 05)) | (byte)((value ? 0x01 : 0x00) << 05)); } }
+        public bool TR_3_clearPoison { get { return Convert.ToBoolean((TR_3 >> 04) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 04)) | (byte)((value ? 0x01 : 0x00) << 04)); } }
+        public bool TR_3_clearBurn { get { return Convert.ToBoolean((TR_3 >> 03) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 03)) | (byte)((value ? 0x01 : 0x00) << 03)); } }
+        public bool TR_3_clearIce { get { return Convert.ToBoolean((TR_3 >> 02) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 02)) | (byte)((value ? 0x01 : 0x00) << 02)); } }
+        public bool TR_3_clearPar { get { return Convert.ToBoolean((TR_3 >> 01) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 01)) | (byte)((value ? 0x01 : 0x00) << 01)); } }
+        public bool TR_3_clearConf { get { return Convert.ToBoolean((TR_3 >> 00) & 0x01); } set { TR_3 = (byte)((TR_3 & ~(0x01 << 00)) | (byte)((value ? 0x01 : 0x00) << 00)); } }
         
         public byte TR_4 { get { return Data[0x51A]; } set {  Data[0x51A] = (byte) value; } }
-        public bool TR_4_stone { get { return Convert.ToBoolean((TR_4 >> 07) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 07)) | (byte)((value == true ? 0x01 : 0x00) << 07)); } }
-        public bool TR_4_revive { get { return Convert.ToBoolean((TR_4 >> 06) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 06)) | (byte)((value == true ? 0x01 : 0x00) << 06)); } }
-        public bool TR_4_maxPPUP { get { return Convert.ToBoolean((TR_4 >> 05) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 05)) | (byte)((value == true ? 0x01 : 0x00) << 05)); } }
-        public bool TR_4_onlyatack { get { return Convert.ToBoolean((TR_4 >> 04) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 04)) | (byte)((value == true ? 0x01 : 0x00) << 04)); } }
-        public bool TR_4_healPP { get { return Convert.ToBoolean((TR_4 >> 03) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 03)) | (byte)((value == true ? 0x01 : 0x00) << 03)); } }
-        public bool TR_4_healHP { get { return Convert.ToBoolean((TR_4 >> 02) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 02)) | (byte)((value == true ? 0x01 : 0x00) << 02)); } }
-        public bool TR_4_atkEVUP { get { return Convert.ToBoolean((TR_4 >> 01) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 01)) | (byte)((value == true ? 0x01 : 0x00) << 01)); } }
-        public bool TR_4_hpEVUP { get { return Convert.ToBoolean((TR_4 >> 00) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 00)) | (byte)((value == true ? 0x01 : 0x00) << 00)); } }
+        public bool TR_4_stone { get { return Convert.ToBoolean((TR_4 >> 07) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 07)) | (byte)((value ? 0x01 : 0x00) << 07)); } }
+        public bool TR_4_revive { get { return Convert.ToBoolean((TR_4 >> 06) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 06)) | (byte)((value ? 0x01 : 0x00) << 06)); } }
+        public bool TR_4_maxPPUP { get { return Convert.ToBoolean((TR_4 >> 05) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 05)) | (byte)((value ? 0x01 : 0x00) << 05)); } }
+        public bool TR_4_onlyatack { get { return Convert.ToBoolean((TR_4 >> 04) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 04)) | (byte)((value ? 0x01 : 0x00) << 04)); } }
+        public bool TR_4_healPP { get { return Convert.ToBoolean((TR_4 >> 03) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 03)) | (byte)((value ? 0x01 : 0x00) << 03)); } }
+        public bool TR_4_healHP { get { return Convert.ToBoolean((TR_4 >> 02) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 02)) | (byte)((value ? 0x01 : 0x00) << 02)); } }
+        public bool TR_4_atkEVUP { get { return Convert.ToBoolean((TR_4 >> 01) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 01)) | (byte)((value ? 0x01 : 0x00) << 01)); } }
+        public bool TR_4_hpEVUP { get { return Convert.ToBoolean((TR_4 >> 00) & 0x01); } set { TR_4 = (byte)((TR_4 & ~(0x01 << 00)) | (byte)((value ? 0x01 : 0x00) << 00)); } }
 
         
         public byte TR_5 { get { return Data[0x51B]; } set {  Data[0x51B] = (byte) value; } }
-        public bool TR_5_happy200 { get { return Convert.ToBoolean((TR_5 >> 07) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 07)) | (byte)((value == true ? 0x01 : 0x00) << 07)); } }
-        public bool TR_5_happy100 { get { return Convert.ToBoolean((TR_5 >> 06) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 06)) | (byte)((value == true ? 0x01 : 0x00) << 06)); } }
-        public bool TR_5_happy0 { get { return Convert.ToBoolean((TR_5 >> 05) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 05)) | (byte)((value == true ? 0x01 : 0x00) << 05)); } }
-        public bool TR_5_ppMax { get { return Convert.ToBoolean((TR_5 >> 04) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 04)) | (byte)((value == true ? 0x01 : 0x00) << 04)); } }
-        public bool TR_5_spdefEVUP { get { return Convert.ToBoolean((TR_5 >> 03) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 03)) | (byte)((value == true ? 0x01 : 0x00) << 03)); } }
-        public bool TR_5_spatkEVUP { get { return Convert.ToBoolean((TR_5 >> 02) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 02)) | (byte)((value == true ? 0x01 : 0x00) << 02)); } }
-        public bool TR_5_spEVUP { get { return Convert.ToBoolean((TR_5 >> 01) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 01)) | (byte)((value == true ? 0x01 : 0x00) << 01)); } }
-        public bool TR_5_defEVUP { get { return Convert.ToBoolean((TR_5 >> 00) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 00)) | (byte)((value == true ? 0x01 : 0x00) << 00)); } }
+        public bool TR_5_happy200 { get { return Convert.ToBoolean((TR_5 >> 07) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 07)) | (byte)((value ? 0x01 : 0x00) << 07)); } }
+        public bool TR_5_happy100 { get { return Convert.ToBoolean((TR_5 >> 06) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 06)) | (byte)((value ? 0x01 : 0x00) << 06)); } }
+        public bool TR_5_happy0 { get { return Convert.ToBoolean((TR_5 >> 05) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 05)) | (byte)((value ? 0x01 : 0x00) << 05)); } }
+        public bool TR_5_ppMax { get { return Convert.ToBoolean((TR_5 >> 04) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 04)) | (byte)((value ? 0x01 : 0x00) << 04)); } }
+        public bool TR_5_spdefEVUP { get { return Convert.ToBoolean((TR_5 >> 03) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 03)) | (byte)((value ? 0x01 : 0x00) << 03)); } }
+        public bool TR_5_spatkEVUP { get { return Convert.ToBoolean((TR_5 >> 02) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 02)) | (byte)((value ? 0x01 : 0x00) << 02)); } }
+        public bool TR_5_spEVUP { get { return Convert.ToBoolean((TR_5 >> 01) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 01)) | (byte)((value ? 0x01 : 0x00) << 01)); } }
+        public bool TR_5_defEVUP { get { return Convert.ToBoolean((TR_5 >> 00) & 0x01); } set { TR_5 = (byte)((TR_5 & ~(0x01 << 00)) | (byte)((value ? 0x01 : 0x00) << 00)); } }
         
         public byte TR_6 { get { return Data[0x51C]; } set {  Data[0x51C] = (byte) value; } }
         public sbyte TR_7 { get { return (sbyte)Data[0x51D]; } set {  Data[0x51D] = (byte) value; } }
@@ -177,87 +168,84 @@ namespace WC3_TOOL
         public sbyte TR_9 { get { return (sbyte)Data[0x51F]; } set {  Data[0x51F] = (byte) value; } }
         
         public byte HPRecovery { 
-        	get { 
-        		if(TR_4_revive == true || TR_4_healHP == true)
+        	get
+          {
+	          if(TR_4_revive || TR_4_healHP)
         			return TR_6;
-        		else
-        			return 0;
-        	} 
+	          return 0;
+          } 
         	set {
-        		if(TR_4_revive == true || TR_4_healHP == true)
+        		if(TR_4_revive || TR_4_healHP)
         			TR_6 = (byte) value; 
         	} }
         public byte PPRecovery { 
-        	get { 
-        		if(TR_4_healPP == true)
+        	get
+          {
+	          if(TR_4_healPP)
         			return TR_6;
-        		else
-        			return 0;
-        	} 
+	          return 0;
+          } 
         	set {
-        		if(TR_4_healPP == true)
+        		if(TR_4_healPP)
         			TR_6 = (byte) value; 
         	} }
         public sbyte EVchange {
-        	get {
-        		if(TR_5_spEVUP == true || TR_5_defEVUP == true || TR_4_atkEVUP == true || 
-        		   TR_4_hpEVUP == true || TR_5_spdefEVUP == true || TR_5_spatkEVUP == true )
+        	get
+          {
+	          if(TR_5_spEVUP || TR_5_defEVUP || TR_4_atkEVUP || 
+        		   TR_4_hpEVUP || TR_5_spdefEVUP || TR_5_spatkEVUP )
         			return (sbyte)TR_6;
-        		else
-        			return 0;
-        	} 
+	          return 0;
+          } 
         	set {
-        		if(TR_5_spEVUP == true || TR_5_defEVUP == true || TR_4_atkEVUP == true || 
-        		   TR_4_hpEVUP == true || TR_5_spdefEVUP == true || TR_5_spatkEVUP == true )
+        		if(TR_5_spEVUP || TR_5_defEVUP || TR_4_atkEVUP || 
+        		   TR_4_hpEVUP || TR_5_spdefEVUP || TR_5_spatkEVUP )
         				TR_6 = (byte) value; 
         	} }
         
         public sbyte Happy200 { 
-        	get {
-        		if(TR_4_revive == true || TR_4_healHP == true || TR_4_healPP == true || TR_4_atkEVUP == true || 
-        		   TR_4_hpEVUP == true || TR_5_spdefEVUP == true || TR_5_spatkEVUP == true ||
-        		   TR_5_spEVUP == true || TR_5_defEVUP == true)
+        	get
+          {
+	          if(TR_4_revive || TR_4_healHP || TR_4_healPP || TR_4_atkEVUP || 
+        		   TR_4_hpEVUP || TR_5_spdefEVUP || TR_5_spatkEVUP ||
+        		   TR_5_spEVUP || TR_5_defEVUP)
         			return (sbyte)TR_7;
-        		else
-        			return (sbyte)TR_6;
-        	} set {  
-        		if(TR_4_revive == true || TR_4_healHP == true || TR_4_healPP == true || TR_4_atkEVUP == true || 
-        		   TR_4_hpEVUP == true || TR_5_spdefEVUP == true || TR_5_spatkEVUP == true ||
-        		   TR_5_spEVUP == true || TR_5_defEVUP == true)
+	          return (sbyte)TR_6;
+          } set {  
+        		if(TR_4_revive || TR_4_healHP || TR_4_healPP || TR_4_atkEVUP || 
+        		   TR_4_hpEVUP || TR_5_spdefEVUP || TR_5_spatkEVUP ||
+        		   TR_5_spEVUP || TR_5_defEVUP)
         			TR_7 = (sbyte) value;
         		else
 	        		TR_6 = (byte) value; 
         	} }
         public sbyte Happy100 { 
         	get {
-        		if(TR_4_revive == true || TR_4_healHP == true || TR_4_healPP == true || TR_4_atkEVUP == true || 
-        		   TR_4_hpEVUP == true || TR_5_spdefEVUP == true || TR_5_spatkEVUP == true ||
-        		   TR_5_spEVUP == true || TR_5_defEVUP == true)
-        		{
-        			if(TR_5_happy200 == true)
+        		if(TR_4_revive || TR_4_healHP || TR_4_healPP || TR_4_atkEVUP || 
+        		   TR_4_hpEVUP || TR_5_spdefEVUP || TR_5_spatkEVUP ||
+        		   TR_5_spEVUP || TR_5_defEVUP)
+            {
+	            if(TR_5_happy200)
         				return (sbyte)TR_8;
-        			else
-        				return (sbyte)TR_7;
-        		}
-        		else{
-        			if(TR_5_happy200 == true)
-        				return (sbyte)TR_7;
-        			else
-        				return (sbyte)TR_6;
-        		}
-        	} set {  
-        		if(TR_4_revive == true || TR_4_healHP == true || TR_4_healPP == true || TR_4_atkEVUP == true || 
-        		   TR_4_hpEVUP == true || TR_5_spdefEVUP == true || TR_5_spatkEVUP == true ||
-        		   TR_5_spEVUP == true || TR_5_defEVUP == true)
+	            return (sbyte)TR_7;
+            }
+
+            if(TR_5_happy200)
+	            return (sbyte)TR_7;
+            return (sbyte)TR_6;
+          } set {  
+        		if(TR_4_revive || TR_4_healHP || TR_4_healPP || TR_4_atkEVUP || 
+        		   TR_4_hpEVUP || TR_5_spdefEVUP || TR_5_spatkEVUP ||
+        		   TR_5_spEVUP || TR_5_defEVUP)
         		{
-        			if(TR_5_happy200 == true)
+        			if(TR_5_happy200)
         				TR_8 = (sbyte) value;
         			else
         				TR_7 = (sbyte) value;
         		}
         			
         		else{
-        			if(TR_5_happy200 == true)
+        			if(TR_5_happy200)
         				TR_7 = (sbyte) value; 
         			else
         				TR_6 = (byte) value; 
@@ -266,48 +254,46 @@ namespace WC3_TOOL
         	} }
         public sbyte Happy0 { 
         	get {
-        		if(TR_4_revive == true || TR_4_healHP == true || TR_4_healPP == true || TR_4_atkEVUP == true || 
-        		   TR_4_hpEVUP == true || TR_5_spdefEVUP == true || TR_5_spatkEVUP == true ||
-        		   TR_5_spEVUP == true || TR_5_defEVUP == true)
+        		if(TR_4_revive || TR_4_healHP || TR_4_healPP || TR_4_atkEVUP || 
+        		   TR_4_hpEVUP || TR_5_spdefEVUP || TR_5_spatkEVUP ||
+        		   TR_5_spEVUP || TR_5_defEVUP)
         		{
-        			if(TR_5_happy200 == true){
-        				if(TR_5_happy100 == true){
+        			if(TR_5_happy200)
+              {
+	              if(TR_5_happy100){
         					return (sbyte)TR_9;
-        				}else{
-        					return (sbyte)TR_8;}
-        			}else{
-        				if(TR_5_happy100 == true){
-        					return (sbyte)TR_8;}
-        				else{
-        					return (sbyte)TR_7;
         				}
-        			}
-        		}
-        		else{
-        			if(TR_5_happy200 == true){
-        				if(TR_5_happy100 == true){
-        					return (sbyte)TR_8;}
-        				else{
-        					return (sbyte)TR_7;}
-        			}else{
-    					if(TR_5_happy100 == true){
-        					return (sbyte)TR_7;}
-        				else{
-        					return (sbyte)TR_6;}
-        			}
-        		}
-        	} set {  
-        		if(TR_4_revive == true || TR_4_healHP == true || TR_4_healPP == true || TR_4_atkEVUP == true || 
-        		   TR_4_hpEVUP == true || TR_5_spdefEVUP == true || TR_5_spatkEVUP == true ||
-        		   TR_5_spEVUP == true || TR_5_defEVUP == true)
+	              return (sbyte)TR_8;
+              }
+              if(TR_5_happy100){
+	              return (sbyte)TR_8;}
+
+              return (sbyte)TR_7;
+            }
+
+            if(TR_5_happy200)
+            {
+	            if(TR_5_happy100){
+		            return (sbyte)TR_8;}
+
+	            return (sbyte)TR_7;
+            }
+            if(TR_5_happy100){
+	            return (sbyte)TR_7;}
+
+            return (sbyte)TR_6;
+          } set {  
+        		if(TR_4_revive || TR_4_healHP || TR_4_healPP || TR_4_atkEVUP || 
+        		   TR_4_hpEVUP || TR_5_spdefEVUP || TR_5_spatkEVUP ||
+        		   TR_5_spEVUP || TR_5_defEVUP)
         		{
-        			if(TR_5_happy200 == true){
-        				if(TR_5_happy100 == true)
+        			if(TR_5_happy200){
+        				if(TR_5_happy100)
         					TR_9 = (sbyte) value;
         				else
         					TR_8 = (sbyte) value;
         			}else{
-        				if(TR_5_happy100 == true)
+        				if(TR_5_happy100)
         					TR_8 = (sbyte) value;
         				else
         					TR_7 = (sbyte) value;
@@ -315,13 +301,13 @@ namespace WC3_TOOL
         		}
         			
         		else{
-        			if(TR_5_happy200 == true){
-        				if(TR_5_happy100 == true)
+        			if(TR_5_happy200){
+        				if(TR_5_happy100)
         					TR_8 = (sbyte) value;
         				else
         					TR_7 = (sbyte) value;
         			}else{
-        				if(TR_5_happy100 == true)
+        				if(TR_5_happy100)
         					TR_7 = (sbyte) value;
         				else
         					TR_6 = (byte) value;

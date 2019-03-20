@@ -7,15 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
-
 using System.Reflection;
 using System.Resources;
 
@@ -83,7 +76,7 @@ Bitmap bitmap = (Bitmap)ResourceManager.GetObject("Image");
 			ResourceManager EggScripts = new ResourceManager("WC3_tool.WC3.GiveEggOrg", Assembly.GetExecutingAssembly());
 			byte[] egg_script;
 			
-			if (killscript.Checked == true)
+			if (killscript.Checked)
 				egg_script =(byte[]) EggScripts.GetObject("ROM_"+game+"_GiveEgg_"+lang+"_4moves_kill");
 			else
 				egg_script = (byte[]) EggScripts.GetObject("ROM_"+game+"_GiveEgg_"+lang+"_4moves");
@@ -94,7 +87,7 @@ Bitmap bitmap = (Bitmap)ResourceManager.GetObject("Image");
 			UInt16 move_4;
 			
 			int offset = 4;//Embedded scripts have a 4 byte padding
-			if (killscript.Checked == true)
+			if (killscript.Checked)
 			{
 				egg_script[0x5+offset] = 0x00; //Remove jumpram command, I should technically update the embedded script files instead of doing this...
 				offset -= 0xF;//Killscript version is 0xF bytes shorter
@@ -132,7 +125,7 @@ Bitmap bitmap = (Bitmap)ResourceManager.GetObject("Image");
 
 			UInt16 species;
 			species = (UInt16)species_box.SelectedIndex;
-			if (killscript.Checked == true)
+			if (killscript.Checked)
 				BitConverter.GetBytes(species).ToArray().CopyTo(egg_script, 0x5D+4);
 			else
 				BitConverter.GetBytes(species).ToArray().CopyTo(egg_script, 0x6C+4);
@@ -141,11 +134,11 @@ Bitmap bitmap = (Bitmap)ResourceManager.GetObject("Image");
 			WC3_editor.wc3file.set_script(egg_script.Skip(4).Take(996).ToArray());
 			WC3_editor.script_injected = true;
 			
-			this.Close();
+			Close();
 		}
 		void Cancel_butClick(object sender, EventArgs e)
 		{
-			this.Close();
+			Close();
 		}
 		void Script_helpClick(object sender, EventArgs e)
 		{

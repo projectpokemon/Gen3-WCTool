@@ -7,7 +7,6 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 using System.Reflection;
 
@@ -20,9 +19,9 @@ namespace WC3_TOOL
 	{
 		public string version()
 		{
-			var version = Assembly.GetExecutingAssembly().GetName().Version;
+			Version version = Assembly.GetExecutingAssembly().GetName().Version;
 			DateTime buildDate = new DateTime(2000, 1, 1).AddDays(version.Build).AddSeconds(version.Revision*2);
-			return "BUILD "+buildDate.Year.ToString()+buildDate.Month.ToString()+buildDate.Day.ToString()+"_"+buildDate.Hour.ToString()+buildDate.Minute.ToString()+buildDate.Second.ToString();
+			return $"BUILD {buildDate.Year}{buildDate.Month}{buildDate.Day}_{buildDate.Hour}{buildDate.Minute}{buildDate.Second}";
 		}
 		
 		public MainScreen()
@@ -122,10 +121,7 @@ namespace WC3_TOOL
 				export_ect_but.Enabled = true;
 				inject_ect_but.Enabled = true;
 				
-				if(sav3file.isjap == true)
-					region_lab.Text = "JAP";
-				else
-					region_lab.Text = "USA/EUR";
+				region_lab.Text = sav3file.isjap ? "JAP" : "USA/EUR";
 
 				region_but.Enabled = true;
 		}
@@ -143,7 +139,7 @@ namespace WC3_TOOL
 				language_box.SelectedIndex = sav3file.language-1;
 				game_box.SelectedIndex = sav3file.game;
 
-				if (sav3file.isjap == true && sav3file.language != 1)
+				if (sav3file.isjap && sav3file.language != 1)
 				{
 					DialogResult dialogResult = MessageBox.Show("Region/language autodetection inconsistency.\n\nIs this a japanese savegame?", "Region Input", MessageBoxButtons.YesNo);
 					if(dialogResult == DialogResult.Yes)
@@ -161,7 +157,6 @@ namespace WC3_TOOL
 				sav3file.updateOffsets();
 	
 			}else if (filesize == -1){
-					;
 			}else{
 				MessageBox.Show("Invalid file.");
 			}
@@ -179,7 +174,7 @@ namespace WC3_TOOL
 		}
 		void Inject_wc3_butClick(object sender, EventArgs e)
 		{
-			if(sav3file.has_WC == true)
+			if(sav3file.has_WC)
 			{
 				DialogResult dialogResult = MessageBox.Show("Savefile already has a WonderCard. Overwrite?", "WonderCard Injection", MessageBoxButtons.YesNo);
 				if(dialogResult == DialogResult.No)
@@ -187,11 +182,11 @@ namespace WC3_TOOL
 					return;
 				}
 			}
-					if (sav3file.has_mystery_gift == true)
+					if (sav3file.has_mystery_gift)
 					{
 						string path = null;
 						int filesize = FileIO.load_file(ref wc3new, ref path, wc3filter);
-						if( (filesize == wc3.SIZE_WC3 && sav3file.isjap == false) || (filesize == wc3.SIZE_WC3_jap  && sav3file.isjap == true) )
+						if( filesize == wc3.SIZE_WC3 && sav3file.isjap == false || filesize == wc3.SIZE_WC3_jap  && sav3file.isjap )
 						{				
 							sav3file.set_WC3(wc3new);
 							//custom_script.Checked = true;
@@ -219,11 +214,11 @@ namespace WC3_TOOL
 		}
 		void Inject_wcnClick(object sender, EventArgs e)
 		{
-			if (sav3file.has_mystery_gift == true)
+			if (sav3file.has_mystery_gift)
 			{
 				string path = null;
 				int filesize = FileIO.load_file(ref wcnnew, ref path, wcnfilter);
-				if( (filesize == SAV3.WCN_SIZE && sav3file.isjap == false) || (filesize == SAV3.WCN_SIZE_jap  && sav3file.isjap == true) )
+				if( filesize == SAV3.WCN_SIZE && sav3file.isjap == false || filesize == SAV3.WCN_SIZE_jap  && sav3file.isjap )
 				{				
 					sav3file.set_WCN(wcnnew);
 					//custom_script.Checked = true;
@@ -260,7 +255,7 @@ namespace WC3_TOOL
 		}
 		void Inject_me3_butClick(object sender, EventArgs e)
 		{
-			if (sav3file.has_mystery_event == true || sav3file.game == 1)
+			if (sav3file.has_mystery_event || sav3file.game == 1)
 			{
 				if (sav3file.game == 1)
 					MessageBox.Show("Mystery Event was removed from non Japanese Emerald.\n\tYou can still inject the data at your own risk.");
@@ -283,7 +278,6 @@ namespace WC3_TOOL
 					}
 					
 				}else if (filesize == -1){
-					;
 				}else{
 					MessageBox.Show("Invalid file size.");
 				}
@@ -396,7 +390,7 @@ namespace WC3_TOOL
 			else
 				sav3file.isjap = false;
 			
-			if(sav3file.isjap == true)
+			if(sav3file.isjap)
 				region_lab.Text = "JAP";
 			else
 				region_lab.Text = "USA/EUR";
@@ -425,7 +419,7 @@ namespace WC3_TOOL
 		}
 		void Export_eberryClick(object sender, EventArgs e)
 		{
-			if(sav3file.has_berry() == true)
+			if(sav3file.has_berry())
 			{
 				FileIO.save_data(sav3file.get_ECB(), berryfilter);
 			}else

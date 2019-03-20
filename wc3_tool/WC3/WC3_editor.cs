@@ -7,17 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
-
-using PKHeX;
-
 using System.Reflection;
 using System.Resources;
 
@@ -36,7 +27,7 @@ namespace WC3_TOOL
 			InitializeComponent();
 			faketoogle.Checked = true;
 			regionlab.Text = "";
-			GFX = this.CreateGraphics();
+			GFX = CreateGraphics();
 			colorbox.SelectedIndex = 0;
 			icon_num.Value = 0;
 			
@@ -51,8 +42,8 @@ namespace WC3_TOOL
 		public byte[] wc3script_new;
 		public static wc3 wc3file;
 		
-		public bool japanese = false;
-		public static bool script_injected = false;
+		public bool japanese;
+		public static bool script_injected;
 		
 		private Graphics GFX;
 		
@@ -75,7 +66,7 @@ namespace WC3_TOOL
 		}
 		string fill_line(string line, int index) //Fills string with spaces to "erase" old content.
 		{
-			if (japanese == true)
+			if (japanese)
 			{
 				switch (index)
 				{
@@ -237,15 +228,15 @@ namespace WC3_TOOL
 		}
 		void Save_wc3_butClick(object sender, EventArgs e)
 		{
-			if (faketoogle.Checked == true)
+			if (faketoogle.Checked)
 				wc3file.fakeWC();
 			//wc3file.fakeSCript();
 			//wc3file.clean_trash();
 			wc3file.set_wc_icon((UInt16)icon_num.Value);
 			int distro = 0;
-			if (distro_but_always.Checked == true)
+			if (distro_but_always.Checked)
 				distro = 1;
-			else if (distro_but_one.Checked == true)
+			else if (distro_but_one.Checked)
 				distro = 2;
 			else
 				distro = 0;
@@ -297,7 +288,7 @@ namespace WC3_TOOL
 		{
 			Form giveEeg = new WC3_editor_givegg();
 			giveEeg.ShowDialog();
-			if (script_injected == true)
+			if (script_injected)
 			{
 				script_injected = false;
 				custom_script.Checked = true;
@@ -314,14 +305,14 @@ namespace WC3_TOOL
 		Image bitmap;
 		void drawCard()
 		{
- 			bitmap = (Image)resources.GetObject("Card_"+colorbox.SelectedIndex.ToString());
+ 			bitmap = (Image)resources.GetObject("Card_"+colorbox.SelectedIndex);
 			GFX.DrawImage(bitmap, 501, 141, 238, 158);
 
-			if (icon_num.Value <= 251 || (icon_num.Value >= 277 && icon_num.Value <= 411))
+			if (icon_num.Value <= 251 || icon_num.Value >= 277 && icon_num.Value <= 411)
 			{
 				bitmap2 = (Image)resources2.GetObject(PKHeX.PKM.getG4Species((int)icon_num.Value).ToString());
 				GFX.DrawImage(bitmap2, 700, 140, 40, 40);
-			}else if ((icon_num.Value >= 412 && icon_num.Value <= 439)) // Egg and unown forms
+			}else if (icon_num.Value >= 412 && icon_num.Value <= 439) // Egg and unown forms
 			{
 				bitmap2 = (Bitmap)resources2.GetObject(icon_num.Value.ToString());
 				GFX.DrawImage(bitmap2, 700, 140, 40, 40);
@@ -404,7 +395,7 @@ namespace WC3_TOOL
 		{
 			Form giveEegExt = new WC3_editor_giveggExt();
 			giveEegExt.ShowDialog();
-			if (script_injected == true)
+			if (script_injected)
 			{
 				script_injected = false;
 				custom_script.Checked = true;

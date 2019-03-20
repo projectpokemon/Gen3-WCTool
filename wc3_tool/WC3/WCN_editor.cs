@@ -7,15 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
-
 using System.Reflection;
 using System.Resources;
 
@@ -33,7 +26,7 @@ namespace WC3_TOOL
 			//
 			InitializeComponent();
 			regionlab.Text = "";
-			GFX = this.CreateGraphics();
+			GFX = CreateGraphics();
 			colorbox.SelectedIndex = 0;
 			
 			//
@@ -44,7 +37,7 @@ namespace WC3_TOOL
 		public byte[] wcnbuffer = new byte[SAV3.WCN_SIZE];
 		public static wc3 wcnfile;
 		
-		public bool japanese = false;
+		public bool japanese;
 		
 		private Graphics GFX;
 		
@@ -167,22 +160,22 @@ namespace WC3_TOOL
 		void drawCard()
 		{
 			//ResourceManager resources = new ResourceManager("WC3_TOOL.WC3.Image.Cards", Assembly.GetExecutingAssembly());
-			bitmap = (Image)resources.GetObject("News_"+colorbox.SelectedIndex.ToString());
+			bitmap = (Image)resources.GetObject("News_"+colorbox.SelectedIndex);
 			GFX.DrawImage(bitmap, 500, 140+26, 260, 140);
 			GFX.DrawImage(bitmap, 500, 140, 260, 140);
 			
 
 			GFX.DrawString(header1.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+4);
 			GFX.DrawString(body1.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21);
-			GFX.DrawString(body2.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+(14*1));
-			GFX.DrawString(body3.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+(14*2));
-			GFX.DrawString(body4.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+(14*3));
-			GFX.DrawString(body5.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+(14*4));
-			GFX.DrawString(body6.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+(14*5));
-			GFX.DrawString(body7.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+(14*6));
-			GFX.DrawString(body8.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+(14*7));
-			GFX.DrawString(body9.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+(14*8));
-			GFX.DrawString(body10.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+(14*9));
+			GFX.DrawString(body2.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+14*1);
+			GFX.DrawString(body3.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+14*2);
+			GFX.DrawString(body4.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+14*3);
+			GFX.DrawString(body5.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+14*4);
+			GFX.DrawString(body6.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+14*5);
+			GFX.DrawString(body7.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+14*6);
+			GFX.DrawString(body8.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+14*7);
+			GFX.DrawString(body9.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+14*8);
+			GFX.DrawString(body10.Text, new Font("Calibri", 8), Brushes.Black, 500+7, 140+21+14*9);
 			
 		}
 		void ColorboxSelectedIndexChanged(object sender, EventArgs e)

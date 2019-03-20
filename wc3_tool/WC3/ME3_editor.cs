@@ -7,14 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
 
 namespace WC3_TOOL
 {
@@ -75,9 +68,9 @@ namespace WC3_TOOL
 			me3file.MAP_MAP = (byte)map_num.Value;
 			me3file.MAP_PERSON = (byte)map_npc.Value;
 			
-			if (radio_E.Checked == true)
+			if (radio_E.Checked)
 				me3file.isemerald = 1;
-			else if (radio_RS.Checked == true)
+			else if (radio_RS.Checked)
 				me3file.isemerald = 0;
 		}
 		

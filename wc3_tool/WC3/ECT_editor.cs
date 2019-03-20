@@ -7,16 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
-using System.Reflection;
-using System.Resources;
 
 namespace WC3_TOOL
 {
@@ -64,19 +56,19 @@ namespace WC3_TOOL
 		void update_easychat()
 		{
 			object[] easychat = ECT_editor_text.easy_chat_eng;
-			if (ita.Checked == true)
+			if (ita.Checked)
 			{
 				easychat = ECT_editor_text.easy_chat_ita;
-			}else if (ger.Checked == true)
+			}else if (ger.Checked)
 			{
 				easychat = ECT_editor_text.easy_chat_ger;
-			}else if (fre.Checked == true)
+			}else if (fre.Checked)
 			{
 				easychat = ECT_editor_text.easy_chat_fre;
-			}else if (esp.Checked == true)
+			}else if (esp.Checked)
 			{
 				easychat = ECT_editor_text.easy_chat_esp;
-			}else if (jap.Checked == true)
+			}else if (jap.Checked)
 			{
 				easychat = ECT_editor_text.easy_chat_jap;
 			}
@@ -189,7 +181,7 @@ namespace WC3_TOOL
 			ectfile.Data[0x1] = (byte) trainer_class_value.Value;
 			ectfile.Data[0x2] = (byte) tower_floor.Value;
 			
-			ECT_editor.ectfile.setData(PKHeX.PKM.setG3Str(name.Text, jap_check.Checked), (int)0x04);
+			ectfile.setData(PKHeX.PKM.setG3Str(name.Text, jap_check.Checked), (int)0x04);
 			
 			ectfile.setData(BitConverter.GetBytes((UInt16)TID.Value).ToArray(), (int)0xC);
 			ectfile.setData(BitConverter.GetBytes((UInt16)SID.Value).ToArray(), (int)0xC);
@@ -275,7 +267,7 @@ namespace WC3_TOOL
 		void Jap_checkCheckedChanged(object sender, EventArgs e)
 		{
 			name.Text = PKHeX.PKM.getG3Str(ectfile.getData(0x4, 8), jap_check.Checked);
-			if (jap_check.Checked == true)
+			if (jap_check.Checked)
 				MessageBox.Show("Remember Japanese names have a maximum of 5 characters.");
 		}
 		object[] trainer_index_RS_other = {
@@ -673,9 +665,9 @@ namespace WC3_TOOL
 		void update_trainer_list()
 		{
 			trainer_class.Items.Clear();
-			if (radio_e.Checked == true)
+			if (radio_e.Checked)
 				trainer_class.Items.AddRange(trainer_index_E);
-			else if(radio_FRLG.Checked == true)
+			else if(radio_FRLG.Checked)
 				trainer_class.Items.AddRange(trainer_index_FRLG);
 			else
 				trainer_class.Items.AddRange(trainer_index_RS);
@@ -698,18 +690,18 @@ namespace WC3_TOOL
 		}
 		void Trainer_class_valueValueChanged(object sender, EventArgs e)
 		{
-			if(trainer_class_value.Value <= 0x4C && radio_rs.Checked == true)
+			if(trainer_class_value.Value <= 0x4C && radio_rs.Checked)
 				trainer_class.SelectedIndex = (int)trainer_class_value.Value;
-			else if(trainer_class_value.Value <= 0x4F && radio_e.Checked == true)
+			else if(trainer_class_value.Value <= 0x4F && radio_e.Checked)
 				trainer_class.SelectedIndex = (int)trainer_class_value.Value;
-			else if(trainer_class_value.Value <= 0x92 && radio_FRLG.Checked == true)
+			else if(trainer_class_value.Value <= 0x92 && radio_FRLG.Checked)
 				trainer_class.SelectedIndex = (int)trainer_class_value.Value;
 			
-			if(trainer_class_value.Value > 0x4C && radio_rs.Checked == true)
+			if(trainer_class_value.Value > 0x4C && radio_rs.Checked)
 				trainer_class.SelectedIndex = 0x4D;
-			else if(trainer_class_value.Value > 0x4F && radio_e.Checked == true)
+			else if(trainer_class_value.Value > 0x4F && radio_e.Checked)
 				trainer_class.SelectedIndex = 0x50;
-			else if(trainer_class_value.Value > 0x92 && radio_FRLG.Checked == true)
+			else if(trainer_class_value.Value > 0x92 && radio_FRLG.Checked)
 				trainer_class.SelectedIndex = 0x93;
 				
 				

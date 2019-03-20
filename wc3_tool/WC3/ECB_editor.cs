@@ -7,14 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
 
 namespace WC3_TOOL
 {
@@ -147,15 +140,15 @@ namespace WC3_TOOL
 			happy100.Checked = ecbfile.TR_5_happy100;
 			happy0.Checked = ecbfile.TR_5_happy0;
 			
-			if (happy200.Checked == true)
+			if (happy200.Checked)
 				hap200.Value = ecbfile.Happy200;
 			else
 				hap200.Value = 0;
-			if (happy100.Checked == true)
+			if (happy100.Checked)
 				hap100.Value = ecbfile.Happy100;
 			else
 				hap100.Value = 0;
-			if (happy0.Checked == true)
+			if (happy0.Checked)
 				happ0.Value = ecbfile.Happy0;
 			else
 				happ0.Value = 0;			
@@ -218,11 +211,11 @@ namespace WC3_TOOL
 			ecbfile.TR_5_ppMax = ppup.Checked;
 			
 			//Only put the first value found
-			if (heal_hp.Checked == true)
+			if (heal_hp.Checked)
 				ecbfile.HPRecovery = (byte)tr6_val.Value;
-			else if (heal_pp.Checked == true)
+			else if (heal_pp.Checked)
 				ecbfile.PPRecovery = (byte)tr6_val.Value;
-			else if (ev_hp.Checked == true || ev_atk.Checked == true || ev_def.Checked == true || ev_speed.Checked == true || ev_speatk.Checked == true || ev_spedef.Checked == true)
+			else if (ev_hp.Checked || ev_atk.Checked || ev_def.Checked || ev_speed.Checked || ev_speatk.Checked || ev_spedef.Checked)
 				ecbfile.EVchange = (sbyte)tr6_val.Value;			
 			
 			ecbfile.TR_5_happy200 = happy200.Checked;

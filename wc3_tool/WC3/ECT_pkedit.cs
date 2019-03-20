@@ -7,14 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
 
 namespace WC3_TOOL
 {
@@ -30,7 +24,7 @@ namespace WC3_TOOL
 			//
 			InitializeComponent();
 			pid.Maximum = 0xFFFFFFFF;
-			pk = 0x34+(index*44);
+			pk = 0x34+index*44;
 			populate();
 			
 			//
@@ -142,12 +136,12 @@ namespace WC3_TOOL
 		
 		void CancelClick(object sender, EventArgs e)
 		{
-			this.Close();
+			Close();
 		}
 		void SaveClick(object sender, EventArgs e)
 		{
 			save_edits();
-			this.Close();
+			Close();
 		}
 		void Jap_checkCheckedChanged(object sender, EventArgs e)
 		{

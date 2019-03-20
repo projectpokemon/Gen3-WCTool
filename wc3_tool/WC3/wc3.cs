@@ -3,20 +3,12 @@
  * User: suloku
  * Date: 28/04/2016
  * Time: 21:32
- * 
+ *
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
-
-using PKHeX;
 
 namespace WC3_TOOL
 {
@@ -27,26 +19,26 @@ namespace WC3_TOOL
 	{
 
 		private static UInt16[] lookup_table = new UInt16[256];
-		
+
 		private static void init_table()
 		{
 		        //Sorry, this is not public for now.
 		}
-		
+
 		private static UInt16 swap(UInt16 value)
 		{
 		    int b1 = value & 0xFF;
 		    int b2 = value >> 8 & 0xFF;
 		    return (UInt16)(b1 << 8 | b2 << 0);
 		}
-		
+
 		public static UInt16 wc_checksum(byte[] buffer, int fSize, int offset)
 		{
 			init_table();
 		    UInt16 iSeed = 0;//Also not public...sorry again
 		    UInt16 tabNum;
 		    UInt16 tabVal;
-		    int curByte = 0;
+		    int curByte;
 		    for (curByte=0; curByte<fSize; curByte++)
 		    {
 		    	tabNum  = (UInt16)((iSeed ^ buffer[curByte+offset]) & 0xFF);
@@ -57,10 +49,10 @@ namespace WC3_TOOL
 		        iSeed = (UInt16)((tabVal ^ (iSeed >> 8)) & 0xFFFF);
 		    }
 		    iSeed = (UInt16)((iSeed ^ 0xFFFF) & 0xFFFF);
-		
+
 		    return iSeed;
 		}
-		
+
 		char[] SYMBOL = {
 		' ', 'À', 'Á', 'Â', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'こ', 'Î', 'Ï', 'Ò', 'Ó', 'Ô',
 		'Œ', 'Ù', 'Ú', 'Û', 'Ñ', 'ß', 'à', 'á', 'ね', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'ま',
@@ -84,20 +76,20 @@ namespace WC3_TOOL
         public const int SIZE_WC3_jap = 0x4 + 0xA4 + 0x28 + 0x28 + 0x3E8 + 4;
         public const int ICON_WC3 = 0x4 + 0x14C + 10;
         public const int ICON_WC3_jap = 0x4 + 0xA4 + 10;
-        
+
         public const int SIZE_WN3 = 4+4+440; //Checksum + header + Data (40bytes*11 lines)
         public const int SIZE_WN3_jap = 4+4+220; //Checksum + header + Data (20bytes*11 lines)
-        
+
         public const int WC_TEXT_START = 14;
         public const int WCN_TEXT_START = 8;
-        
+
         public byte cardcolor;
         public int distributable;
 
-        private int text_start = 0;
-        private int wc3_size = 0;
-        private int wn_size = 0;
-        public bool japanese = false;
+        private int text_start;
+        private int wc3_size;
+        private int wn_size;
+        public bool japanese;
 
         // Global Settings
         // Save Data Attributes
@@ -108,57 +100,55 @@ namespace WC3_TOOL
         public string FileName, FilePath;
         public wc3(byte[] data)
         {
-        	
+
         	if(data.Length == SIZE_WN3 || data.Length == SIZE_WN3_jap) //WN3
         	{
-	            Data = (byte[])(data ?? new byte[data.Length]).Clone();
+	            Data = (byte[])data.Clone();
 	            BAK = (byte[])Data.Clone();
 	            Exportable = !Data.SequenceEqual(new byte[Data.Length]);
-	            
+
 		        if ( Data[0x06] == 0x1)
 		        	distributable = 1;
 		        else
 		        	distributable = 0;
-		        
+
 		        cardcolor = Data[0x07];
-		        
+
 		        text_start = WCN_TEXT_START;
-		        
+
 		        if(data.Length == SIZE_WN3_jap)
 		        	japanese = true;
-		        
-		        if (japanese == true)
+
+		        if (japanese)
 		        	wn_size = SIZE_WN3_jap;
 	        	else
 	        		wn_size = SIZE_WN3;
         	}
 	        else //WC3
         	{
-	        	
+
 	            Data = (byte[])(data ?? new byte[data.Length]).Clone();
 	            BAK = (byte[])Data.Clone();
 	            Exportable = !Data.SequenceEqual(new byte[Data.Length]);
-	
+
 	            if(data.Length == SIZE_WC3_jap)
 		        	japanese = true;
-		       
-	            if (japanese == true)
+
+	            if (japanese)
 		        	wc3_size = SIZE_WC3_jap;
 				else
 	        		wc3_size = SIZE_WC3;
-	            
+
 		        if ( (Data[0xC] & 0x80) == 0x80)
 		        	distributable = 1;
 		        else if ( (Data[0xC] & 0x40) == 0x40)
 		        	distributable = 2;
 		        else
 		        	distributable = 0;
- 
-		        cardcolor = (byte)(Data[0xC] & ~0x80);   
+
+		        cardcolor = (byte)(Data[0xC] & ~0x80);
 		        text_start = WC_TEXT_START;
         	}
-            
-            return;
         }
 /*        public wc3(byte[] data, int wcn)
         {
@@ -170,13 +160,13 @@ namespace WC3_TOOL
 	        	distributable = 1;
 	        else
 	        	distributable = 0;
-	        
+
 	        cardcolor = Data[0x07];
-	        
+
 	        text_start = WCN_TEXT_START;
 	        if (japanese == true)
 	        	wn_size = WCN
-            
+
             return;
         }
  */
@@ -195,7 +185,7 @@ namespace WC3_TOOL
         	texto = "";
         	foreach (byte value in input)
         	{
-        		string newtext = texto + SYMBOL[value].ToString();
+        		string newtext = texto + SYMBOL[value];
         		texto = newtext;
         	}
         	return texto;
@@ -203,11 +193,10 @@ namespace WC3_TOOL
         public byte[] text2gba(string input)
         {
         	byte[] gbatext = new byte[40];
-        	byte i = 0;
-        	int count = 0;
+          int count = 0;
         	foreach (char value in input)
         	{
-        		for(i=0;i<0xFF;i++)
+	          for(byte i=0;i<0xFF;i++)
         		{
 	        		if (value == SYMBOL[i])
 	        		{
@@ -216,13 +205,11 @@ namespace WC3_TOOL
 	        				gbatext[count] = 0;
 	        				break;
 	        			}
-	        			else
-	        			{
-	        				gbatext[count] = i;
-	        				break;
-	        			}
-	        		}
-	        			
+
+	              gbatext[count] = i;
+	              break;
+	            }
+
         		}
 
         		//MessageBox.Show(gbatext[count].ToString("X"));
@@ -233,10 +220,9 @@ namespace WC3_TOOL
 
         public UInt16 get_wc_icon()
         {
-        	if(japanese == true)
+	        if(japanese)
         		return BitConverter.ToUInt16(getData(ICON_WC3_jap, 2), 0);
-        	else
-        		return BitConverter.ToUInt16(getData(ICON_WC3, 2), 0);
+	        return BitConverter.ToUInt16(getData(ICON_WC3, 2), 0);
         }
         public int get_wc_color()
         {
@@ -296,12 +282,12 @@ namespace WC3_TOOL
         			colorgui = 0;
         			break;
         	}
-        		
+
         	return colorgui;
         }
         public void set_wc_icon(int newicon)
         {
-        	if (japanese == true)
+        	if (japanese)
         	{
         		setData(BitConverter.GetBytes((UInt16)newicon), ICON_WC3_jap);
         	}
@@ -309,7 +295,7 @@ namespace WC3_TOOL
         	{
         		setData(BitConverter.GetBytes((UInt16)newicon), ICON_WC3);
         	}
-        	
+
         }
         public void set_wcn_color_distro(int color, int distro)
         {
@@ -319,7 +305,7 @@ namespace WC3_TOOL
 		    	Data[0x06] = 0x02;//Does not allow distribution either. More testing needed.
 		    else
 		    	Data[0x06] = 0x00;
-		    
+
 		    Data[0x07] = (byte)(color&0xFF);
         }
         public void set_wc_color_distro(int color, int distro)
@@ -355,23 +341,23 @@ namespace WC3_TOOL
         			output = 0x00;
         			break;
         	}
-        	
+
 		    if (distro == 1)
 		    	output = (byte)(output + 0x80);
 		    else if (distro == 2)
 		    	output = (byte)(output + 0x40);
-		    
+
 		    Data[0xC] = output;
         }
         public string get_wc_text(int index)
         {
-        	return gba2text(Data.Skip(text_start+(index * 0x28)).Take(0x28).ToArray());
+        	return gba2text(Data.Skip(text_start+index * 0x28).Take(0x28).ToArray());
         }
         public string get_wc_text_2(int index)
         {
         	int size = 0x28;
         	int[] offset = {0,40,80,120,160,200,240,280};
-        	if (japanese == true)
+        	if (japanese)
         	{
         		offset[0]=0;offset[1]=18;offset[2]=18+13;offset[3]=18+13+20;
         		offset[4]=18+13+40;offset[5]=18+13+60;offset[6]=18+13+80;offset[7]=18+13+100;
@@ -388,16 +374,16 @@ namespace WC3_TOOL
         				break;
         		}
         	}
-        	return PKHeX.PKM.getG3Str(Data.Skip(text_start+(offset[index])).Take(size).ToArray(), japanese);
+        	return PKHeX.PKM.getG3Str(Data.Skip(text_start+offset[index]).Take(size).ToArray(), japanese);
         }
         public void insert_wc_text(string text, int index)
         {
-        	setData(text2gba(text), text_start+(index * 0x28));
+        	setData(text2gba(text), text_start+index * 0x28);
         }
         public void insert_wc_text_2(string text, int index)
         {
         	int[] offset = {0,40,80,120,160,200,240,280};
-        	if (japanese == true)
+        	if (japanese)
         	{
         		offset[0]=0;offset[1]=18;offset[2]=18+13;offset[3]=18+13+20;
         		offset[4]=18+13+40;offset[5]=18+13+60;offset[6]=18+13+80;offset[7]=18+13+100;
@@ -407,26 +393,26 @@ namespace WC3_TOOL
         public void clear_wc_text()
         {
         	int i;
-        	if (japanese == true)
+        	if (japanese)
         	{
-        		for(i=0;i<(18+13+(20*6));i++)
+        		for(i=0;i<18+13+20*6;i++)
         		    Data[text_start+i]=0x00;
         	}else
         	{
-        		for(i=0;i<(40*8);i++)
+        		for(i=0;i<40*8;i++)
         		    Data[text_start+i]=0x00;
         	}
         }
         public void clear_wn_text()
         {
         	int i;
-        	if (japanese == true)
+        	if (japanese)
         	{
-        		for(i=0;i<(20*11);i++)
+        		for(i=0;i<20*11;i++)
         		    Data[text_start+i]=0x00;
         	}else
         	{
-        		for(i=0;i<(40*11);i++)
+        		for(i=0;i<40*11;i++)
         		    Data[text_start+i]=0x00;
         	}
         }
@@ -434,24 +420,24 @@ namespace WC3_TOOL
         {
         	int size = 0x28;
         	int[] offset = {0,40,80,120,160,200,240,280,320,360,400};
-        	if (japanese == true)
+        	if (japanese)
         	{
         		size = 0x14;
         		int i;
         		for (i=0;i<11;i++){
-        			offset[i]=(0x14*i);
+        			offset[i]=0x14*i;
         		}
         	}
-        	return PKHeX.PKM.getG3Str(Data.Skip(text_start+(offset[index])).Take(size).ToArray(), japanese);
+        	return PKHeX.PKM.getG3Str(Data.Skip(text_start+offset[index]).Take(size).ToArray(), japanese);
         }
         public void insert_wn_text_2(string text, int index)
         {
         	int[] offset = {0,40,80,120,160,200,240,280,320,360,400};
-        	if (japanese == true)
+        	if (japanese)
         	{
         		int i;
         		for (i=0;i<11;i++){
-        			offset[i]=(0x14*i);
+        			offset[i]=0x14*i;
         		}
 			}
         	setData(PKHeX.PKM.setG3Str_WONDER(text, japanese), text_start+offset[index]);
@@ -470,14 +456,13 @@ namespace WC3_TOOL
         }
         public void clean_trash()
         {
-        	int i = 0;
+        	int i;
         	for (i=0; i<996; i++)
-        	{
-        		if(Data[wc3_size-i-1] == 0xFF)
+          {
+	          if(Data[wc3_size-i-1] == 0xFF)
         			break;
-        		else
-        			Data[wc3_size-i-1] = 0;
-        	}
+	          Data[wc3_size-i-1] = 0;
+          }
         }
         public void fix_wcn_checksum()
         {
@@ -487,7 +472,7 @@ namespace WC3_TOOL
         public void fix_wc_checksum()
         {
         	UInt16 chk;
-        	if(japanese == true)
+        	if(japanese)
         	{
         		chk = wc_checksum(getData(4, 0xA4), 0xA4, 0);
         	}
@@ -495,7 +480,7 @@ namespace WC3_TOOL
         	{
         		chk = wc_checksum(getData(4, 0x14C), 0x14C, 0);
         	}
-        	
+
         	setData(BitConverter.GetBytes(chk), 0);
         }
         public void fix_script_checksum()
@@ -553,7 +538,7 @@ namespace WC3_TOOL
         		Data[wc3_size-i-1] = 0x00;
         	}
         	//Get address to script
-        	UInt32 address = BitConverter.ToUInt32(newscript, 0);       	
+        	UInt32 address = BitConverter.ToUInt32(newscript, 0);
         	setData(newscript.Skip((int)address).Take(996).ToArray(), wc3_size-996);
         }
         public byte ID { get { return Data[wc3_size-1000]; } set { Data[wc3_size-1000] = value; } }

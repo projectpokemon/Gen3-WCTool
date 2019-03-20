@@ -7,14 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
 
 namespace WC3_TOOL
 {
@@ -91,15 +85,15 @@ namespace WC3_TOOL
         
         public bool isvalid = true;
         public int game = -1;
-        public bool has_WC = false;
-        public bool has_WCN = false;
-        public bool has_mystery_gift = false;
-        public bool has_mystery_event = false;
+        public bool has_WC;
+        public bool has_WCN;
+        public bool has_mystery_gift;
+        public bool has_mystery_event;
         
-        public bool isjap = false;
-        public int language = 0;
+        public bool isjap;
+        public int language;
         
-        byte[] boxbuffer = new byte[(3968*8)+2000];
+        byte[] boxbuffer = new byte[3968*8+2000];
 /*
 0x0201	Japanese
 0x0202	English
@@ -122,8 +116,8 @@ namespace WC3_TOOL
         private int tv_outbreak_data_offset;
         
         private UInt16 noCash;
-        private UInt32 oldSav = 0;
-        private UInt32 currentSav = 0;
+        private UInt32 oldSav;
+        private UInt32 currentSav;
         private UInt32 sec0, s0, sx, x;
         private UInt32[] sec = new UInt32[14];
         
@@ -141,7 +135,7 @@ namespace WC3_TOOL
 		        sec0 = Data[0x0FF4 + 0x1000 * s0 + currentSav];
 		        if (sec0 == 0x0){
 		            for(sx = 0; sx <=13; sx++){
-		                if((s0 + sx) <= 13){
+		                if(s0 + sx <= 13){
 		                    sec[sx] = s0 + sx;
 		                }
 		                else {
@@ -180,10 +174,9 @@ namespace WC3_TOOL
         }
         public byte[] getDataFromBlock_old(int Offset, int Length, int block)
         {
-        	if (block == 0)
+	        if (block == 0)
         		return Data.Skip((int)(Offset + 0x1000 * sec[13] + oldSav)).Take(Length).ToArray();
-        	else
-        		return Data.Skip((int)(Offset + 0x1000 * sec[block-1] + oldSav)).Take(Length).ToArray();
+	        return Data.Skip((int)(Offset + 0x1000 * sec[block-1] + oldSav)).Take(Length).ToArray();
         }
         public void setData(byte[] input, int Offset)
         {
@@ -248,9 +241,7 @@ namespace WC3_TOOL
 					if(isjap) //Todo different offsets in jap version???
 					{
 					}
-					else
-					{
-					}
+
 					me3_offset = ME3_OFFSET_RS;
 		        	me3_size = ME3_SIZE_RS;
 		        		
@@ -345,7 +336,7 @@ namespace WC3_TOOL
         {
         	
         	byte[] pkm = new byte[0x50];        	
-        	boxbuffer.Skip(4+index*0x50+(0x50*30*box)).Take(0x50).ToArray().CopyTo(pkm, 0);
+        	boxbuffer.Skip(4+index*0x50+0x50*30*box).Take(0x50).ToArray().CopyTo(pkm, 0);
         	
         	return pkm;
         }
@@ -363,7 +354,7 @@ namespace WC3_TOOL
 
 		    for (i = 0; i < teamSize; i++)
 		    {
-		    	lang = BitConverter.ToUInt16(getDataFromBlock((team_offset+4) + (0x64*i) + 0x12, 2, 1), 0);
+		    	lang = BitConverter.ToUInt16(getDataFromBlock(team_offset+4 + 0x64*i + 0x12, 2, 1), 0);
 		    	switch (lang)
 		    	{
 		    		case 0x0201:
@@ -453,7 +444,6 @@ namespace WC3_TOOL
         			break;
         		}
         	}
-        	return;
         }
         
         public void hasWCN()
@@ -528,7 +518,7 @@ namespace WC3_TOOL
 	                break;
 
 	            case 1: //Emerald
-	                if (isjap == true) // Mystery event. Save gets deleted if enabled in EUR/USA version
+	                if (isjap) // Mystery event. Save gets deleted if enabled in EUR/USA version
 	                {
 		                check = getDataFromBlock(0x405, 1, 2);
 		        		if ( (check[0]&0x10) == 0){
@@ -660,8 +650,7 @@ namespace WC3_TOOL
         	byte[] check = getDataFromBlock(BERRY_OFFSET_RS, 1, 4);
         	if (check[0] == 0x00)
         		return false;
-        	else
-        		return true;
+          return true;
         } 
         
         public int has_ME3()
@@ -670,14 +659,14 @@ namespace WC3_TOOL
         	//MessageBox.Show(me3.Length.ToString());
         	
         	if (BitConverter.ToInt32(me3, 0) == 0) // No script
-        	{	//MessageBox.Show(BitConverter.ToInt32(me3, 0).ToString());
+          {
+	          //MessageBox.Show(BitConverter.ToInt32(me3, 0).ToString());
         		//MessageBox.Show(BitConverter.ToInt32(me3, me3_size-ME3_ITEM_SIZE).ToString());
         		//MessageBox.Show(me3[1004].ToString());
         		if (BitConverter.ToInt32(me3, me3_size-ME3_ITEM_SIZE) == 0) //No item either
         			return 0; //No me3
-        		else
-        			return 2; //No me3, but item data is present
-        	}
+            return 2; //No me3, but item data is present
+          }
         	
         	return 1;
         }
@@ -918,7 +907,7 @@ namespace WC3_TOOL
 	                check = getDataFromBlock(0x32C, 1, 2);
 	                if ( (check[0]&0x10) != 0)
 	                {
-	                	check[0] = (byte)(check[0]&(~0x10));
+	                	check[0] = (byte)(check[0]&~0x10);
 	                  	setDataToBlock(check, 0x32C, 2);
 	                  	update_section_chk(2);
 	                }
@@ -927,7 +916,7 @@ namespace WC3_TOOL
 	                check = getDataFromBlock(0xf5B, 1, 1);
 	                if ( (check[0]&0x01) != 0)
 	                {
-	                	check[0] = (byte)(check[0]&(~0x01));
+	                	check[0] = (byte)(check[0]&~0x01);
 	                  	setDataToBlock(check, 0xf5b, 1);
 	                  	update_section_chk(1);
 	                }

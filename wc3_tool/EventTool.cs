@@ -7,7 +7,6 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 using System.Reflection;
@@ -81,7 +80,7 @@ namespace WC3_TOOL
 				}
 
 				
-				if(sav3file.isjap == true)
+				if(sav3file.isjap)
 					region_lab.Text = "JAP";
 				else
 					region_lab.Text = "USA/EUR";
@@ -91,7 +90,7 @@ namespace WC3_TOOL
 				language_box.SelectedIndex = sav3file.language-1;
 				game_box.SelectedIndex = sav3file.game;
 
-				if (sav3file.isjap == true && sav3file.language != 1)
+				if (sav3file.isjap && sav3file.language != 1)
 				{
 					DialogResult dialogResult = MessageBox.Show("Region/language autodetection inconsistency.\n\nIs this a japanesse savegame?", "Region Input", MessageBoxButtons.YesNo);
 					if(dialogResult == DialogResult.Yes)
@@ -127,7 +126,7 @@ namespace WC3_TOOL
 		}
 		void Inject_wc3_butClick(object sender, EventArgs e)
 		{
-			if(sav3file.has_WC == true)
+			if(sav3file.has_WC)
 			{
 				DialogResult dialogResult = MessageBox.Show("Savefile already has a WonderCard. Overwrite?", "WonderCard Injection", MessageBoxButtons.YesNo);
 				if(dialogResult == DialogResult.No)
@@ -135,11 +134,11 @@ namespace WC3_TOOL
 					return;
 				}
 			}
-					if (sav3file.has_mystery_gift == true)
+					if (sav3file.has_mystery_gift)
 					{
 						string path = null;
 						int filesize = FileIO.load_file(ref wc3new, ref path, wc3filter);
-						if( (filesize == wc3.SIZE_WC3 && sav3file.isjap == false) || (filesize == wc3.SIZE_WC3_jap  && sav3file.isjap == true) )
+						if( filesize == wc3.SIZE_WC3 && sav3file.isjap == false || filesize == wc3.SIZE_WC3_jap  && sav3file.isjap )
 						{				
 							sav3file.set_WC3(wc3new);
 							//custom_script.Checked = true;
@@ -167,11 +166,11 @@ namespace WC3_TOOL
 		}
 		void Inject_wcnClick(object sender, EventArgs e)
 		{
-			if (sav3file.has_mystery_gift == true)
+			if (sav3file.has_mystery_gift)
 			{
 				string path = null;
 				int filesize = FileIO.load_file(ref wcnnew, ref path, wcnfilter);
-				if( (filesize == SAV3.WCN_SIZE && sav3file.isjap == false) || (filesize == SAV3.WCN_SIZE_jap  && sav3file.isjap == true) )
+				if( filesize == SAV3.WCN_SIZE && sav3file.isjap == false || filesize == SAV3.WCN_SIZE_jap  && sav3file.isjap )
 				{				
 					sav3file.set_WCN(wcnnew);
 					//custom_script.Checked = true;
@@ -208,7 +207,7 @@ namespace WC3_TOOL
 		}
 		void Inject_me3_butClick(object sender, EventArgs e)
 		{
-			if (sav3file.has_mystery_event == true || sav3file.game == 1)
+			if (sav3file.has_mystery_event || sav3file.game == 1)
 			{
 				if (sav3file.game == 1)
 					MessageBox.Show("Mystery Event was removed from non Japanesse Emerald.\n\tYou can still inject the data at your own risk.");
@@ -394,7 +393,7 @@ namespace WC3_TOOL
 			else
 				sav3file.isjap = false;
 			
-			if(sav3file.isjap == true)
+			if(sav3file.isjap)
 				region_lab.Text = "JAP";
 			else
 				region_lab.Text = "USA/EUR";
@@ -458,9 +457,9 @@ namespace WC3_TOOL
 			switch (language_box.SelectedIndex)
 			{
 				case 0://JAP
-					if (jap_eon.Checked == true)
+					if (jap_eon.Checked)
 					{
-						if (sav3file.has_mystery_event == true)
+						if (sav3file.has_mystery_event)
 						{
 							if (game_box.SelectedIndex == 0) //RS
 							{
@@ -481,11 +480,11 @@ namespace WC3_TOOL
 							MessageBox.Show("Please enable Mystery Event in the savefile.");
 						}
 					}
-					else if (jap_aurora.Checked == true)
+					else if (jap_aurora.Checked)
 					{
 						if (game_box.SelectedIndex == 2) //FRLG
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("JAP_AURORA_FRLG_FILE"));
 								sav3file.update_section_chk(4);
@@ -499,11 +498,11 @@ namespace WC3_TOOL
 
 						}
 					}
-					else if (jap_mystic.Checked == true)
+					else if (jap_mystic.Checked)
 					{
 						if (game_box.SelectedIndex == 1) //E
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("JAP_MYSTIC_E_FILE"));
 								sav3file.update_section_chk(4);
@@ -518,7 +517,7 @@ namespace WC3_TOOL
 						}
 						else if (game_box.SelectedIndex == 2) //FRLG
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("JAP_MYSTIC_FRLG_FILE"));
 								sav3file.update_section_chk(4);
@@ -532,11 +531,11 @@ namespace WC3_TOOL
 
 						}
 					}
-					else if (jap_old.Checked == true)
+					else if (jap_old.Checked)
 					{
 						if (game_box.SelectedIndex == 1) //E
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("JAP_OLDMAP_E_FILE"));
 								sav3file.update_section_chk(4);
@@ -552,9 +551,9 @@ namespace WC3_TOOL
 					}
 					break;
 				case 1://English
-					if (usa_eon_ecard.Checked == true)
+					if (usa_eon_ecard.Checked)
 					{
-						if (sav3file.has_mystery_event == true)
+						if (sav3file.has_mystery_event)
 						{
 							if (game_box.SelectedIndex == 0) //RS
 							{
@@ -569,9 +568,9 @@ namespace WC3_TOOL
 							MessageBox.Show("Please enable Mystery Event in the savefile.");
 						}
 					}
-					else if (usa_eon_italy.Checked == true)
+					else if (usa_eon_italy.Checked)
 					{
-						if (sav3file.has_mystery_event == true)
+						if (sav3file.has_mystery_event)
 						{
 							if (game_box.SelectedIndex == 0) //RS
 							{
@@ -586,11 +585,11 @@ namespace WC3_TOOL
 							MessageBox.Show("Please enable Mystery Event in the savefile.");
 						}
 					}
-					else if (usa_aurora.Checked == true)
+					else if (usa_aurora.Checked)
 					{
 						if (game_box.SelectedIndex == 1) //E
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("USA_AURORA_E_FILE"));
 								sav3file.update_section_chk(4);
@@ -605,7 +604,7 @@ namespace WC3_TOOL
 						}
 						else if (game_box.SelectedIndex == 2) //FRLG
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("USA_AURORA_FRLG_FILE"));
 								sav3file.update_section_chk(4);
@@ -619,11 +618,11 @@ namespace WC3_TOOL
 
 						}
 					}
-					else if (usa_mystic.Checked == true)
+					else if (usa_mystic.Checked)
 					{
 						if (game_box.SelectedIndex == 1) //E
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("USA_MYSTIC_E_FILE"));
 								sav3file.update_section_chk(4);
@@ -639,7 +638,7 @@ namespace WC3_TOOL
 						else if (game_box.SelectedIndex == 2) //FRLG
 						{
 
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("USA_MYSTIC_FRLG_FILE"));
 								sav3file.update_section_chk(4);
@@ -655,9 +654,9 @@ namespace WC3_TOOL
 					}
 					break;
 				case 2://French
-					if (eur_eon.Checked == true)
+					if (eur_eon.Checked)
 					{
-						if (sav3file.has_mystery_event == true)
+						if (sav3file.has_mystery_event)
 						{
 							if (game_box.SelectedIndex == 0) //RS
 							{
@@ -672,11 +671,11 @@ namespace WC3_TOOL
 							MessageBox.Show("Please enable Mystery Event in the savefile.");
 						}
 					}
-					else if (eur_aurora.Checked == true)
+					else if (eur_aurora.Checked)
 					{
 						if (game_box.SelectedIndex == 1) //E
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("FR_AURORA_E_FILE"));
 								sav3file.update_section_chk(4);
@@ -691,7 +690,7 @@ namespace WC3_TOOL
 						}
 						else if (game_box.SelectedIndex == 2) //FRLG
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("FR_AURORA_FRLG_FILE"));
 								sav3file.update_section_chk(4);
@@ -707,9 +706,9 @@ namespace WC3_TOOL
 					}
 					break;
 				case 3://Italian
-					if (eur_eon.Checked == true)
+					if (eur_eon.Checked)
 					{
-						if (sav3file.has_mystery_event == true)
+						if (sav3file.has_mystery_event)
 						{
 							if (game_box.SelectedIndex == 0) //RS
 							{
@@ -724,11 +723,11 @@ namespace WC3_TOOL
 							MessageBox.Show("Please enable Mystery Event in the savefile.");
 						}
 					}
-					else if (eur_aurora.Checked == true)
+					else if (eur_aurora.Checked)
 					{
 						if (game_box.SelectedIndex == 1) //E
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("IT_AURORA_E_FILE"));
 								sav3file.update_section_chk(4);
@@ -743,7 +742,7 @@ namespace WC3_TOOL
 						}
 						else if (game_box.SelectedIndex == 2) //FRLG
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("IT_AURORA_FRLG_FILE"));
 								sav3file.update_section_chk(4);
@@ -759,9 +758,9 @@ namespace WC3_TOOL
 					}
 					break;
 				case 4://German
-					if (eur_eon.Checked == true)
+					if (eur_eon.Checked)
 					{
-						if (sav3file.has_mystery_event == true)
+						if (sav3file.has_mystery_event)
 						{
 							if (game_box.SelectedIndex == 0) //RS
 							{
@@ -776,11 +775,11 @@ namespace WC3_TOOL
 							MessageBox.Show("Please enable Mystery Event in the savefile.");
 						}
 					}
-					else if (eur_aurora.Checked == true)
+					else if (eur_aurora.Checked)
 					{
 						if (game_box.SelectedIndex == 1) //E
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("DE_AURORA_E_FILE"));
 								sav3file.update_section_chk(4);
@@ -795,7 +794,7 @@ namespace WC3_TOOL
 						}
 						else if (game_box.SelectedIndex == 2) //FRLG
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("DE_AURORA_FRLG_FILE"));
 								sav3file.update_section_chk(4);
@@ -813,9 +812,9 @@ namespace WC3_TOOL
 				case 5://Korean
 					break;
 				case 6://Spanish
-					if (eur_eon.Checked == true)
+					if (eur_eon.Checked)
 					{
-						if (sav3file.has_mystery_event == true)
+						if (sav3file.has_mystery_event)
 						{
 							if (game_box.SelectedIndex == 0) //RS
 							{
@@ -830,11 +829,11 @@ namespace WC3_TOOL
 							MessageBox.Show("Please enable Mystery Event in the savefile.");
 						}
 					}
-					else if (eur_aurora.Checked == true)
+					else if (eur_aurora.Checked)
 					{
 						if (game_box.SelectedIndex == 1) //E
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("SP_AURORA_E_FILE"));
 								sav3file.update_section_chk(4);
@@ -849,7 +848,7 @@ namespace WC3_TOOL
 						}
 						else if (game_box.SelectedIndex == 2) //FRLG
 						{
-							if (sav3file.has_mystery_gift == true)
+							if (sav3file.has_mystery_gift)
 							{
 								sav3file.set_WC3((byte[]) Tickets.GetObject("SP_AURORA_FRLG_FILE"));
 								sav3file.update_section_chk(4);

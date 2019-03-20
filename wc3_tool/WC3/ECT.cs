@@ -7,14 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.IO;
 
 namespace WC3_TOOL
 {
@@ -37,8 +30,6 @@ namespace WC3_TOOL
             Data = (byte[])(data ?? new byte[SIZE_ECT]).Clone();
             BAK = (byte[])Data.Clone();
             Exportable = !Data.SequenceEqual(new byte[Data.Length]);
-          
-            return;
         }
         public byte[] getData(int Offset, int Length)
         {
@@ -92,11 +83,9 @@ namespace WC3_TOOL
         	{
         		if (value == 0xFF)
         			break;
-        		else{
-        			string newtext = texto + SYMBOL[value].ToString();
-        			texto = newtext;
-        		}
-        	}
+            string newtext = texto + SYMBOL[value];
+            texto = newtext;
+          }
         	return texto;
 		}
         public byte[] text2gba(string input, int len)
@@ -116,12 +105,10 @@ namespace WC3_TOOL
 	        				gbatext[count] = 0;
 	        				break;
 	        			}
-	        			else
-	        			{
-	        				gbatext[count] = i;
-	        				break;
-	        			}
-	        		}
+
+	              gbatext[count] = i;
+	              break;
+	            }
 	        			
         		}
 

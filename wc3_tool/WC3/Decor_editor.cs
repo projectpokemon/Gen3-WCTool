@@ -7,14 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
 
 
 namespace WC3_TOOL
@@ -153,8 +146,8 @@ namespace WC3_TOOL
 				if(item==reference[i]){
 					decorationbox.SelectedIndex = i + 1;
 					break;
-				}else
-					decorationbox.SelectedIndex = 0;
+				}
+				decorationbox.SelectedIndex = 0;
 			}
 		}
 		int[] desk_ref = {1,2,3,4,5,6,7,8,9};
