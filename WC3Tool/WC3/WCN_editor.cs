@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Resources;
 
-namespace WC3_TOOL
+namespace WC3Tool
 {
 	/// <summary>
 	/// Description of MainForm.
@@ -155,11 +155,11 @@ namespace WC3_TOOL
 		{
 	
 		}
-		ResourceManager resources = new ResourceManager("WC3_TOOL.WC3.Image.Cards", Assembly.GetExecutingAssembly());
+		ResourceManager resources = new ResourceManager("WC3Tool.WC3.Image.Cards", Assembly.GetExecutingAssembly());
 		Image bitmap;
 		void drawCard()
 		{
-			//ResourceManager resources = new ResourceManager("WC3_TOOL.WC3.Image.Cards", Assembly.GetExecutingAssembly());
+			//ResourceManager resources = new ResourceManager("WC3Tool.WC3.Image.Cards", Assembly.GetExecutingAssembly());
 			bitmap = (Image)resources.GetObject("News_"+colorbox.SelectedIndex);
 			GFX.DrawImage(bitmap, 500, 140+26, 260, 140);
 			GFX.DrawImage(bitmap, 500, 140, 260, 140);

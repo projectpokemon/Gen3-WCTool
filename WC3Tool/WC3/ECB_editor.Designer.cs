@@ -6,7 +6,7 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-namespace WC3_TOOL
+namespace WC3Tool
 {
 	partial class ECB_editor
 	{

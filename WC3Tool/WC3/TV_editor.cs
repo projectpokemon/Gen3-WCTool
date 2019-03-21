@@ -9,7 +9,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace WC3_TOOL
+namespace WC3Tool
 {
 	/// <summary>
 	/// Description of TV_editor.

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Resources;
 
-namespace WC3_TOOL
+namespace WC3Tool
 {
 	/// <summary>
 	/// Description of MainForm.
@@ -299,8 +299,8 @@ namespace WC3_TOOL
 		{
 			drawCard();
 		}
-		ResourceManager resources = new ResourceManager("WC3_TOOL.WC3.Image.Cards", Assembly.GetExecutingAssembly());
-		ResourceManager resources2 = new ResourceManager("WC3_TOOL.WC3.Image.Icons", Assembly.GetExecutingAssembly());
+		ResourceManager resources = new ResourceManager("WC3Tool.WC3.Image.Cards", Assembly.GetExecutingAssembly());
+		ResourceManager resources2 = new ResourceManager("WC3Tool.WC3.Image.Icons", Assembly.GetExecutingAssembly());
 		Image bitmap2;
 		Image bitmap;
 		void drawCard()

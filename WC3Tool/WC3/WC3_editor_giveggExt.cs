@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Resources;
 
-namespace WC3_TOOL
+namespace WC3Tool
 {
 	/// <summary>
 	/// Description of WC3_editor_givegg.
@@ -73,7 +73,7 @@ Bitmap bitmap = (Bitmap)ResourceManager.GetObject("Image");
 					break;
 			}
 			//MessageBox.Show("ROM_"+game+"_GiveEgg_"+lang);
-			ResourceManager EggScripts = new ResourceManager("WC3_tool.WC3.GiveEggOrg", Assembly.GetExecutingAssembly());
+			ResourceManager EggScripts = new ResourceManager("WC3Tool.WC3.GiveEggOrg", Assembly.GetExecutingAssembly());
 			byte[] egg_script;
 			
 			if (killscript.Checked)
