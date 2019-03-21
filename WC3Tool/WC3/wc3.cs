@@ -10,7 +10,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace WC3_TOOL
+namespace WC3Tool
 {
 	/// <summary>
 	/// Description of wc3.

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Resources;
 
-namespace WC3_TOOL
+namespace WC3Tool
 {
 	/// <summary>
 	/// Description of EventTool.
@@ -30,7 +30,7 @@ namespace WC3_TOOL
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
 		}
-		ResourceManager Tickets = new ResourceManager("WC3_tool.WC3.Tickets", Assembly.GetExecutingAssembly());
+		ResourceManager Tickets = new ResourceManager("WC3Tool.WC3.Tickets", Assembly.GetExecutingAssembly());
 		public string savfilter = "RAW Save file|*.sav;*sa1;*sa2|All Files (*.*)|*.*";
 		public string wc3filter = "Wonder Card file|*.wc3|All Files (*.*)|*.*";
 		public string wcnfilter = "Wonder News file|*.wn3|All Files (*.*)|*.*";
