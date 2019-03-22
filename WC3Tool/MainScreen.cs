@@ -457,7 +457,7 @@ namespace WC3Tool
 		}
 		void AboutToolStripMenuItem1Click(object sender, EventArgs e)
 		{
-			MessageBox.Show("Mystery Gift Tool 0.1e by Sabresite ("+version()+")\n\nMany thanks to suloku, ajxpkm, Real.96, BlackShark, lostaddict, Háčky, every contributor and many more involved in Mystery Event research!\n\nThe research thread at projectpokemon.org might be of your interest.\n\nIf you want to contribute any missing event, contact Sabresite, suloku or ajxpkm at projectpokemon's forums or sabresite@projectpokemon.org");
+			MessageBox.Show("Mystery Gift Tool 0.1f by Sabresite ("+version()+")\n\nMany thanks to suloku, ajxpkm, Real.96, BlackShark, lostaddict, Háčky, every contributor and many more involved in Mystery Event research!\n\nThe research thread at projectpokemon.org might be of your interest.\n\nIf you want to contribute any missing event, contact Sabresite, suloku or ajxpkm at projectpokemon's forums or sabresite@projectpokemon.org");
 		}
 		void Tvswarm_butClick(object sender, EventArgs e)
 		{

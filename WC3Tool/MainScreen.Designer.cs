@@ -553,7 +553,7 @@ namespace WC3Tool
 			this.Controls.Add(this.load_save_but);
 			this.Controls.Add(this.menuStrip1);
 			this.Name = "MainScreen";
-			this.Text = "Mystery Gift Tool 0.1e by Sabresite";
+			this.Text = "Mystery Gift Tool 0.1f by Sabresite";
 			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainScreenDragDrop);
 			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainScreenDragEnter);
 			this.menuStrip1.ResumeLayout(false);
