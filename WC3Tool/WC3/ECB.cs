@@ -99,7 +99,7 @@ namespace WC3Tool
         }
         public bool isjap;
         
-        public string NAME { get { return PKHeX.PKM.getG3Str(Data.Take(7).ToArray(), isjap); } set { setData(PKHeX.PKM.setG3Str(value, isjap), 0); } }
+        public string NAME { get { return StringConverter.GetG3Str(Data.Take(7).ToArray(), isjap); } set { setData(StringConverter.SetG3Str(value, isjap), 0); } }
         public byte FIRMNESS { get { return Data[0x7]; } set {  Data[0x7] = (byte) value; } }
         public UInt16 SIZE { get { return BitConverter.ToUInt16(Data, 0x8); } set {  BitConverter.GetBytes((UInt16)value).CopyTo(Data, 0x8);; } }
         public byte YIELD_MAX { get { return Data[0xA]; } set {  Data[0xA] = (byte) value; } }
@@ -112,8 +112,8 @@ namespace WC3Tool
         public byte SOUR { get { return Data[0x19]; } set {  Data[0x19] = (byte) value; } }
         public byte SMOOTH { get { return Data[0x1A]; } set {  Data[0x1A] = (byte) value; } }
         
-        public string DESC_1 { get { return PKHeX.PKM.getG3Str(Data.Skip(0x4BC).Take(45).ToArray(), isjap); } set { setData(PKHeX.PKM.setG3Str(value, isjap), 0x4BC); } }
-        public string DESC_2 { get { return PKHeX.PKM.getG3Str(Data.Skip(0x4E9).Take(45).ToArray(), isjap); } set { setData(PKHeX.PKM.setG3Str(value, isjap), 0x4E9); } }
+        public string DESC_1 { get { return StringConverter.GetG3Str(Data.Skip(0x4BC).Take(45).ToArray(), isjap); } set { setData(StringConverter.SetG3Str(value, isjap), 0x4BC); } }
+        public string DESC_2 { get { return StringConverter.GetG3Str(Data.Skip(0x4E9).Take(45).ToArray(), isjap); } set { setData(StringConverter.SetG3Str(value, isjap), 0x4E9); } }
         
         public byte HITEM { get { return Data[0x528]; } set {  Data[0x528] = (byte) value; } }
         

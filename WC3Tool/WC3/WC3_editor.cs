@@ -310,7 +310,7 @@ namespace WC3Tool
 
 			if (icon_num.Value <= 251 || icon_num.Value >= 277 && icon_num.Value <= 411)
 			{
-				bitmap2 = (Image)resources2.GetObject(PKHeX.PKM.getG4Species((int)icon_num.Value).ToString());
+				bitmap2 = (Image)resources2.GetObject(SpeciesConverter.GetG4Species((int)icon_num.Value).ToString());
 				GFX.DrawImage(bitmap2, 700, 140, 40, 40);
 			}else if (icon_num.Value >= 412 && icon_num.Value <= 439) // Egg and unown forms
 			{
