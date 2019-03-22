@@ -102,7 +102,8 @@
     <Compile Include="WC3\ME3_editor.Designer.cs">
       <DependentUpon>ME3_editor.cs</DependentUpon>
     </Compile>
-    <Compile Include="WC3\PKHEX\PKM.cs" />
+    <Compile Include="WC3\PKHEX\SpeciesConverter.cs" />
+    <Compile Include="WC3\PKHEX\StringConverter.cs" />
     <Compile Include="WC3\SAV3.cs" />
     <Compile Include="WC3\TV.cs" />
     <Compile Include="WC3\TV_editor.cs">

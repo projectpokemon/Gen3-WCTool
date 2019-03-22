@@ -52,7 +52,7 @@ namespace WC3Tool
 		void populate()
 		{
 			item_box.SelectedIndex = BitConverter.ToUInt16( ECT_editor.ectfile.getData(pk+0x2, 2), 0);
-			namebox.Text = PKHeX.PKM.getG3Str(ECT_editor.ectfile.getData(pk+0x20, 11), jap_check.Checked);
+			namebox.Text = StringConverter.GetG3Str(ECT_editor.ectfile.getData(pk+0x20, 11), jap_check.Checked);
 			
 			move1.SelectedIndex = BitConverter.ToUInt16( ECT_editor.ectfile.getData(pk+0x4, 2), 0);
 			move2.SelectedIndex = BitConverter.ToUInt16( ECT_editor.ectfile.getData(pk+0x6, 2), 0);
@@ -94,7 +94,7 @@ namespace WC3Tool
 		{
 			ECT_editor.ectfile.setData(BitConverter.GetBytes((UInt16)item_box.SelectedIndex).ToArray(),pk+0x2);
 
-			ECT_editor.ectfile.setData(PKHeX.PKM.setG3Str(namebox.Text, jap_check.Checked), pk+0x20);
+			ECT_editor.ectfile.setData(StringConverter.SetG3Str(namebox.Text, jap_check.Checked), pk+0x20);
 			
 			ECT_editor.ectfile.setData(BitConverter.GetBytes((UInt16)move1.SelectedIndex).ToArray(),pk+0x4);
 			ECT_editor.ectfile.setData(BitConverter.GetBytes((UInt16)move2.SelectedIndex).ToArray(),pk+0x6);
@@ -145,7 +145,7 @@ namespace WC3Tool
 		}
 		void Jap_checkCheckedChanged(object sender, EventArgs e)
 		{
-			namebox.Text = PKHeX.PKM.getG3Str(ECT_editor.ectfile.getData(pk+0x20, 11), jap_check.Checked);
+			namebox.Text = StringConverter.GetG3Str(ECT_editor.ectfile.getData(pk+0x20, 11), jap_check.Checked);
 		}
 		
 	}

@@ -144,7 +144,7 @@ namespace WC3Tool
 			trainer_class_value.Value= ectfile.Data[0x1];
 			tower_floor.Value = ectfile.Data[0x2];
 			
-			name.Text = PKHeX.PKM.getG3Str(ectfile.getData(0x4, 8), jap_check.Checked);
+			name.Text = StringConverter.GetG3Str(ectfile.getData(0x4, 8), jap_check.Checked);
 			TID.Value = BitConverter.ToUInt16(ectfile.getData(0xC, 2), 0);
 			SID.Value = BitConverter.ToUInt16(ectfile.getData(0xE, 2), 0);
 			
@@ -181,7 +181,7 @@ namespace WC3Tool
 			ectfile.Data[0x1] = (byte) trainer_class_value.Value;
 			ectfile.Data[0x2] = (byte) tower_floor.Value;
 			
-			ectfile.setData(PKHeX.PKM.setG3Str(name.Text, jap_check.Checked), (int)0x04);
+			ectfile.setData(StringConverter.SetG3Str(name.Text, jap_check.Checked), (int)0x04);
 			
 			ectfile.setData(BitConverter.GetBytes((UInt16)TID.Value).ToArray(), (int)0xC);
 			ectfile.setData(BitConverter.GetBytes((UInt16)SID.Value).ToArray(), (int)0xC);
@@ -266,7 +266,7 @@ namespace WC3Tool
 		}
 		void Jap_checkCheckedChanged(object sender, EventArgs e)
 		{
-			name.Text = PKHeX.PKM.getG3Str(ectfile.getData(0x4, 8), jap_check.Checked);
+			name.Text = StringConverter.GetG3Str(ectfile.getData(0x4, 8), jap_check.Checked);
 			if (jap_check.Checked)
 				MessageBox.Show("Remember Japanese names have a maximum of 5 characters.");
 		}

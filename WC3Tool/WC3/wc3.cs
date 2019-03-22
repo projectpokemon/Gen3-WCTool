@@ -402,7 +402,7 @@ namespace WC3Tool
         				break;
         		}
         	}
-        	return PKHeX.PKM.getG3Str(Data.Skip(text_start+offset[index]).Take(size).ToArray(), japanese);
+        	return StringConverter.GetG3Str(Data.Skip(text_start+offset[index]).Take(size).ToArray(), japanese);
         }
         public void insert_wc_text(string text, int index)
         {
@@ -416,7 +416,7 @@ namespace WC3Tool
         		offset[0]=0;offset[1]=18;offset[2]=18+13;offset[3]=18+13+20;
         		offset[4]=18+13+40;offset[5]=18+13+60;offset[6]=18+13+80;offset[7]=18+13+100;
         	}
-        	setData(PKHeX.PKM.setG3Str_WONDER(text, japanese), text_start+offset[index]);
+        	setData(StringConverter.SetG3Str_WONDER(text, japanese), text_start+offset[index]);
         }
         public void clear_wc_text()
         {
@@ -456,7 +456,7 @@ namespace WC3Tool
         			offset[i]=0x14*i;
         		}
         	}
-        	return PKHeX.PKM.getG3Str(Data.Skip(text_start+offset[index]).Take(size).ToArray(), japanese);
+        	return StringConverter.GetG3Str(Data.Skip(text_start+offset[index]).Take(size).ToArray(), japanese);
         }
         public void insert_wn_text_2(string text, int index)
         {
@@ -468,7 +468,7 @@ namespace WC3Tool
         			offset[i]=0x14*i;
         		}
 			}
-        	setData(PKHeX.PKM.setG3Str_WONDER(text, japanese), text_start+offset[index]);
+        	setData(StringConverter.SetG3Str_WONDER(text, japanese), text_start+offset[index]);
         }
         public void fakeWC()
         {
